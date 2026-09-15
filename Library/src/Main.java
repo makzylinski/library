@@ -37,7 +37,10 @@ public class Main {
             switch (choice) {
                 case 1:
                     System.out.println("Option 1 selected");
-                    System.out.println(library.getBooks());
+
+                    for (Book b : library.getBooks()) {
+                        System.out.println(b);
+                    }
 
                     break;
                 case 2:
