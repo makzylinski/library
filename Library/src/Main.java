@@ -11,18 +11,16 @@ public class Main {
 
         List<Book> books = new ArrayList<>();
 
-        for (int b = 0; b <= 10; b++) {
-            books.add(new Book("1984", new Author("George Orwell"), 215, b));
-            books.add(new Book("To Kill a Mockingbird", new Author("Harper Lee"), 142, b));
-            books.add(new Book("The Great Gatsby", new Author("F. Scott Fitzgerald"), 425, b));
-            books.add(new Book("Brave New World", new Author("Aldous Huxley"), 41, b));
-            books.add(new Book("Pride and Prejudice", new Author("Jane Austen"), 332, b));
-            books.add(new Book("The Catcher in the Rye", new Author("J.D. Salinger"), 215, b));
-            books.add(new Book("Moby-Dick", new Author("Herman Melville"), 71, b));
-            books.add(new Book("The Hobbit", new Author("J.R.R. Tolkien"), 126, b));
-            books.add(new Book("Fahrenheit 451", new Author("Ray Bradbury"), 512, b));
-            books.add(new Book("Crime and Punishment", new Author("Fyodor Dostoevsky"), 442, b));
-        };
+        books.add(new Book("1984", new Author("George Orwell"), 215, 0));
+        books.add(new Book("To Kill a Mockingbird", new Author("Harper Lee"), 142, 1));
+        books.add(new Book("The Great Gatsby", new Author("F. Scott Fitzgerald"), 425, 2));
+        books.add(new Book("Brave New World", new Author("Aldous Huxley"), 41, 3));
+        books.add(new Book("Pride and Prejudice", new Author("Jane Austen"), 332, 4));
+        books.add(new Book("The Catcher in the Rye", new Author("J.D. Salinger"), 215, 5));
+        books.add(new Book("Moby-Dick", new Author("Herman Melville"), 71, 6));
+        books.add(new Book("The Hobbit", new Author("J.R.R. Tolkien"), 126, 7));
+        books.add(new Book("Fahrenheit 451", new Author("Ray Bradbury"), 512, 8));
+        books.add(new Book("Crime and Punishment", new Author("Fyodor Dostoevsky"), 442, 9));
 
         library.setBooks(books);
 
@@ -40,9 +38,21 @@ public class Main {
                 case 1:
                     System.out.println("Option 1 selected");
                     System.out.println(library.getBooks());
+
                     break;
                 case 2:
                     System.out.println("Option 2 selected");
+                    System.out.println("Input book title");
+                    String titleChoice = sc.nextLine();
+
+                    System.out.println("Input author name and last name");
+                    String authorChoice = sc.nextLine();
+
+                    System.out.println("Input pages");
+                    int pagesChoice = Integer.parseInt(sc.nextLine());
+
+                    books.add(new Book(titleChoice, new Author(authorChoice), pagesChoice, library.getBooks().size()));
+                    library.setBooks(books);
                     break;
                 case 3:
                     System.out.println("Option 3 selected");
