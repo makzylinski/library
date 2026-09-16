@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
     public static void main(String[] args) {
@@ -10,17 +11,18 @@ public class Main {
         Library library = new Library();
 
         List<Book> books = new ArrayList<>();
+        List<Book> borrowedBooks = new ArrayList<>();
 
         books.add(new Book("1984", new Author("George Orwell"), 215, 0));
         books.add(new Book("To Kill a Mockingbird", new Author("Harper Lee"), 142, 1));
-        books.add(new Book("The Great Gatsby", new Author("F. Scott Fitzgerald"), 425, 2));
-        books.add(new Book("Brave New World", new Author("Aldous Huxley"), 41, 3));
-        books.add(new Book("Pride and Prejudice", new Author("Jane Austen"), 332, 4));
-        books.add(new Book("The Catcher in the Rye", new Author("J.D. Salinger"), 215, 5));
-        books.add(new Book("Moby-Dick", new Author("Herman Melville"), 71, 6));
-        books.add(new Book("The Hobbit", new Author("J.R.R. Tolkien"), 126, 7));
-        books.add(new Book("Fahrenheit 451", new Author("Ray Bradbury"), 512, 8));
-        books.add(new Book("Crime and Punishment", new Author("Fyodor Dostoevsky"), 442, 9));
+//        books.add(new Book("The Great Gatsby", new Author("F. Scott Fitzgerald"), 425, 2));
+//        books.add(new Book("Brave New World", new Author("Aldous Huxley"), 41, 3));
+//        books.add(new Book("Pride and Prejudice", new Author("Jane Austen"), 332, 4));
+//        books.add(new Book("The Catcher in the Rye", new Author("J.D. Salinger"), 215, 5));
+//        books.add(new Book("Moby-Dick", new Author("Herman Melville"), 71, 6));
+//        books.add(new Book("The Hobbit", new Author("J.R.R. Tolkien"), 126, 7));
+//        books.add(new Book("Fahrenheit 451", new Author("Ray Bradbury"), 512, 8));
+//        books.add(new Book("Crime and Punishment", new Author("Fyodor Dostoevsky"), 442, 9));
 
         library.setBooks(books);
 
@@ -63,14 +65,16 @@ public class Main {
                     }
                     System.out.println("Which book would you like to borrow? Input ID: ");
                     int bookIdChoice = Integer.parseInt(sc.nextLine());
-
+                    AtomicInteger bookIndex = new AtomicInteger();
                     books.forEach(book -> {
                         if (book.getId() == bookIdChoice) {
-                            if(book.isAvailable())
-                            book.setAvailable(false);
-                            else System.out.println("Can't borrow this book, it's out of stock.");
+                            bookIndex.set(books.indexOf(book));
+                                borrowedBooks.add(books.get(bookIndex.get()));
+
+                                System.out.println(borrowedBooks);
                         }
                     });
+                    books.remove(bookIndex.get());
                     break;
                 case 4:
                     System.out.println("Option 4 selected");
