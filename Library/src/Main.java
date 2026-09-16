@@ -58,7 +58,19 @@ public class Main {
                     library.setBooks(books);
                     break;
                 case 3:
-                    System.out.println("Option 3 selected");
+                    for (Book b : library.getBooks()) {
+                        System.out.println(b);
+                    }
+                    System.out.println("Which book would you like to borrow? Input ID: ");
+                    int bookIdChoice = Integer.parseInt(sc.nextLine());
+
+                    books.forEach(book -> {
+                        if (book.getId() == bookIdChoice) {
+                            if(book.isAvailable())
+                            book.setAvailable(false);
+                            else System.out.println("Can't borrow this book, it's out of stock.");
+                        }
+                    });
                     break;
                 case 4:
                     System.out.println("Option 4 selected");
