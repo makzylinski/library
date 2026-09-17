@@ -4,6 +4,17 @@ import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
+    private static Integer readUserChoice(Scanner sc, String message) {
+        System.out.println(message);
+
+        try {
+            return Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Please input numeric value");
+            return null;
+        }
+    };
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -34,16 +45,17 @@ public class Main {
             System.out.println("4. Return a book");
             System.out.println("5. Exit");
             System.out.print("Enter your option: ");
-            int choice = Integer.parseInt(sc.nextLine());
+
+
+            Integer choice = readUserChoice(sc, "Enter your option: ");
+            if (choice == null) continue;
 
             switch (choice) {
                 case 1:
                     System.out.println("Option 1 selected");
-
                     for (Book b : library.getBooks()) {
                         System.out.println(b);
                     }
-
                     break;
                 case 2:
                     System.out.println("Option 2 selected");
@@ -64,18 +76,24 @@ public class Main {
                         System.out.println(b);
                     }
                     System.out.println("Which book would you like to borrow? Input ID: ");
-                    int bookIdChoice = Integer.parseInt(sc.nextLine());
-                    AtomicInteger bookIndex = new AtomicInteger();
-                    books.forEach(book -> {
-                        if (book.getId() == bookIdChoice) {
-                            bookIndex.set(books.indexOf(book));
-                                borrowedBooks.add(books.get(bookIndex.get()));
+                        try {
+                            int bookIdChoice = Integer.parseInt(sc.nextLine());
+                            AtomicInteger bookIndex = new AtomicInteger();
+                            books.forEach(book -> {
+                                if (book.getId() == bookIdChoice) {
+                                    bookIndex.set(books.indexOf(book));
+                                    borrowedBooks.add(books.get(bookIndex.get()));
 
-                                System.out.println(borrowedBooks);
+                                    System.out.println(borrowedBooks);
+                                }
+                            });
+                            books.remove(bookIndex.get());
+
+                        } catch (NumberFormatException e) {
+                            System.out.println("Please input numeric value");
                         }
-                    });
-                    books.remove(bookIndex.get());
-                    break;
+
+                        break;
                 case 4:
                     System.out.println("Option 4 selected");
                     break;
@@ -83,7 +101,7 @@ public class Main {
                     System.out.println("Option 5 selected");
                     game = 5;
                     break;
-            }
+                }
 
         }
     }
