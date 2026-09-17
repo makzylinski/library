@@ -82,13 +82,31 @@ public class Main {
                         if (book.getId() == bookIdChoice) {
                             bookIndex.set(books.indexOf(book));
                             borrowedBooks.add(books.get(bookIndex.get()));
-                            System.out.println(borrowedBooks);
                         }
                     });
                     books.remove(bookIndex.get());
                     break;
                 case 4:
-                    System.out.println("Option 4 selected");
+                    System.out.println("Borrowed books: ");
+                    borrowedBooks.forEach(book -> System.out.println(book.toString()));
+
+                    Integer bookId = readUserChoice(sc, "Which book would you like to return? Input ID: ");
+                    if (bookId == null) break;
+
+                    Book bookToReturn = null;
+                    for (Book book : borrowedBooks) {
+                        if (book.getId() == bookId) {
+                            bookToReturn = book;
+                            break;
+                        }
+                    }
+
+                    if (bookToReturn != null) {
+                        borrowedBooks.remove(bookToReturn);
+                        books.add(bookToReturn);
+                    } else {
+                        System.out.println("Book with that ID not found among borrowed books");
+                    }
                     break;
                 case 5:
                     System.out.println("Option 5 selected");
