@@ -87,8 +87,13 @@ public class Main {
                     books.remove(bookIndex.get());
                     break;
                 case 4:
-                    System.out.println("Borrowed books: ");
-                    borrowedBooks.forEach(book -> System.out.println(book.toString()));
+                    if (borrowedBooks.size() > 0) {
+                        System.out.println("Borrowed books: ");
+                        borrowedBooks.forEach(book -> System.out.println(book.toString()));
+                    } else {
+                        System.out.println("You have no books to return");
+                        break;
+                    }
 
                     Integer bookId = readUserChoice(sc, "Which book would you like to return? Input ID: ");
                     if (bookId == null) break;
