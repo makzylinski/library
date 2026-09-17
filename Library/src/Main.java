@@ -75,25 +75,18 @@ public class Main {
                     for (Book b : library.getBooks()) {
                         System.out.println(b);
                     }
-                    System.out.println("Which book would you like to borrow? Input ID: ");
-                        try {
-                            int bookIdChoice = Integer.parseInt(sc.nextLine());
-                            AtomicInteger bookIndex = new AtomicInteger();
-                            books.forEach(book -> {
-                                if (book.getId() == bookIdChoice) {
-                                    bookIndex.set(books.indexOf(book));
-                                    borrowedBooks.add(books.get(bookIndex.get()));
-
-                                    System.out.println(borrowedBooks);
-                                }
-                            });
-                            books.remove(bookIndex.get());
-
-                        } catch (NumberFormatException e) {
-                            System.out.println("Please input numeric value");
+                    Integer bookIdChoice = readUserChoice(sc, "Which book would you like to borrow? Input ID: ");
+                    if (bookIdChoice == null) break;
+                    AtomicInteger bookIndex = new AtomicInteger();
+                    books.forEach(book -> {
+                        if (book.getId() == bookIdChoice) {
+                            bookIndex.set(books.indexOf(book));
+                            borrowedBooks.add(books.get(bookIndex.get()));
+                            System.out.println(borrowedBooks);
                         }
-
-                        break;
+                    });
+                    books.remove(bookIndex.get());
+                    break;
                 case 4:
                     System.out.println("Option 4 selected");
                     break;
